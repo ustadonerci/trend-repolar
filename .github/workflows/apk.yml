@@ -21,7 +21,8 @@ jobs:
         shell: bash
       # Log'lar girişsiz görünmüyor; hataları herkese açık annotation olarak yaz.
       - if: failure()
-        run: grep -E "^e: |What went wrong|FAILED|Caused by|expected:" -A2 build.log | head -40 | while IFS= read -r l; do echo "::error::$l"; done
+        run: |
+          grep -E "^e: |What went wrong|FAILED|Caused by|expected:" -A2 build.log | head -40 | while IFS= read -r l; do echo "::error::$l"; done
       - uses: actions/upload-artifact@v4
         with:
           name: trend-repolar-apk
